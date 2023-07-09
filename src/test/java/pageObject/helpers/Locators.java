@@ -1,7 +1,6 @@
-package firstTest.helpers;
+package pageObject.helpers;
 
 import org.openqa.selenium.By;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,14 +9,13 @@ public class Locators {
     private static Properties locators;
 
     static {
-        locators = new Properties();
-
-        InputStream is = Locators.class.getResourceAsStream("locators.properties");     // Принимаем локатор
-
         try {
-            locators.load(is);                                                              // Ловим ошибку
+        locators = new Properties();
+        InputStream is = Locators.class.getResourceAsStream("/locators.properties");     // Принимаем локатор
+
+            locators.load(is);
         } catch (IOException e) {
-            throw new RuntimeException("Couldn`t read from properties\n" + e.getMessage()); // При ошибке бросаем ошибку
+            throw new RuntimeException("Couldn`t read from properties\n" + e.getMessage());
         }
     }
 

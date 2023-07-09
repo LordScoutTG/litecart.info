@@ -1,4 +1,4 @@
-package firstTest.helpers;
+package pageObject.helpers;
 
 public enum LocatorTypes {
     id,
