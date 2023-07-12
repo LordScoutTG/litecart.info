@@ -9,11 +9,13 @@ public class LoginPage {
     private final By userNameInput = By.cssSelector("[name='username']");
     private final By passwordInput = By.cssSelector("[name='password']");
     private final By loginButton = By.xpath("//div/button");
-
     private final By loginLogo = By.xpath("//div/h5");
 
     public By getLoginLogo() {
         return loginLogo;
+    }
+    public By getUserNameInput() {
+        return userNameInput;
     }
 
     public void userNameInput(String userName){
@@ -32,10 +34,6 @@ public class LoginPage {
         userNameInput(userName);
         passwordInput(password);
         clickLoginButton();
-    }
-
-    public By getUserNameInput() {
-        return userNameInput;
     }
 
     public boolean loginLogoVisible(){

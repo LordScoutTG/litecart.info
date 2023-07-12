@@ -1,19 +1,19 @@
 package herokuapp.addremove;
 
-import org.openqa.selenium.WebDriver;
 
 import static pageObject.helpers.Locators.getLocator;
+import static pageObject.helpers.WebDriverContainer.setDriver;
 
 public class AddRemovePage {
 
-    public static void addButtonClick(WebDriver driver) throws Exception {
-        driver.findElement(getLocator("AddRemove.addButton")).click();
+    public static void addButtonClick() throws Exception {
+        setDriver().findElement(getLocator("AddRemove.addButton")).click();
     }
 
-    public static void removeButtonClick(WebDriver driver) throws Exception {
-        driver.findElement(getLocator("AddRemove.deleteButton")).click();
+    public static void removeButtonClick() throws Exception {
+        setDriver().findElement(getLocator("AddRemove.deleteButton")).click();
     }
-    public static boolean removeButtonIsVisible(WebDriver driver) throws Exception {
-        return driver.findElement(getLocator("AddRemove.deleteButton")).isDisplayed();
+    public static boolean removeButtonIsVisible() throws Exception {
+        return setDriver().findElements(getLocator("AddRemove.deleteButton")).size() > 0;
     }
 }

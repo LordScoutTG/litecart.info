@@ -17,18 +17,11 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <selenium.version>4.9.0</selenium.version>
+    <selenium.version>4.10.0</selenium.version>
     <aspectj.version>1.9.19</aspectj.version>
   </properties>
 
   <dependencies>
-    <!--        <dependency>-->
-    <!--            <groupId>org.testng</groupId>-->
-    <!--            <artifactId>testng</artifactId>-->
-    <!--            <version>7.4.0</version>-->
-    <!--            <scope>test</scope>-->
-    <!--        </dependency>-->
-
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-api</artifactId>
@@ -88,6 +81,16 @@
       <version>5.3.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- устраняет ошибку Асинхр клиента -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-http-jdk-client</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+
+
+
+
     <!--        <dependency>-->
     <!--            <groupId>ru.yandex.qatools.htmlelements</groupId>-->
     <!--            <artifactId>htmlelements-java</artifactId>-->
@@ -109,13 +112,11 @@
         <configuration>
           <testFailureIgnore>false</testFailureIgnore>
           <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
-          <systemProperties>
+          <systemPropertyVariables>
             <property>
               <name>allure.results.directory</name>
               <value>${project.build.directory}/allure-results</value>
             </property>
-          </systemProperties>
-          <systemPropertyVariables>
             <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
           </systemPropertyVariables>
         </configuration>

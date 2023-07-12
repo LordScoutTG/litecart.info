@@ -87,7 +87,7 @@ public class ReqresTest {
 
     @Test
     public void correctYearSortTest(){
-        Specifications.installSpecifications(Specifications.requestSpecification(URL), Specifications.responseSpecificationERROR400());
+        Specifications.installSpecifications(Specifications.requestSpecification(URL), Specifications.responseSpecificationOK200());
         List<ListResources> data = given()
                 .when()
                 .get("api/unknown")

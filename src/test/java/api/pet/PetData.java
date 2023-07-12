@@ -19,6 +19,7 @@ public class PetData {
         this.status = status;
     }
 
+
     public int getId() {
         return id;
     }

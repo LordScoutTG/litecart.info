@@ -20,19 +20,23 @@ public class LoginOrangeTest extends TestBase{
         WebDriverWait wait = new WebDriverWait(WebDriverContainer.setDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(loginPage.getUserNameInput()));
         loginPage.attemptLogin("Admin", "admin123");
-        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getAvatarVisible()));
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getDirectoryButton()));
+        mainPage.directoryButtonClick();
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getDirectoryHeader()));
+        Assert.assertTrue(mainPage.directoryHeaderVisible("Directory"), "Direcory header missing");
 
-        Assert.assertTrue(mainPage.confirmAvatarVisible(), "Avatar was not found");
     }
 
     @Test
-    public void logoutTest(){
-        loginTest();
+    public void logoutTest() {
         LoginPage loginPage = new LoginPage();
         MainPage mainPage = new MainPage();
+        WebDriverWait wait = new WebDriverWait(WebDriverContainer.setDriver(), Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(loginPage.getUserNameInput()));
+        loginPage.attemptLogin("Admin", "admin123");
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getDirectoryButton()));
         mainPage.avatarClick();
         mainPage.logoutButtonClick();
-        WebDriverWait wait = new WebDriverWait(WebDriverContainer.setDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(loginPage.getLoginLogo()));
         Assert.assertTrue(loginPage.loginLogoVisible(), "No Login displayed");
     }
