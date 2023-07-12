@@ -1,17 +1,16 @@
 package homework.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Wait;
 
 import static pageObject.helpers.WebDriverContainer.setDriver;
 
 public class LoginPage {
 
-    private By userNameInput = By.cssSelector("[name='username']");
-    private By passwordInput = By.cssSelector("[name='password']");
-    private By loginButton = By.xpath("//div/button");
+    private final By userNameInput = By.cssSelector("[name='username']");
+    private final By passwordInput = By.cssSelector("[name='password']");
+    private final By loginButton = By.xpath("//div/button");
 
-    private By loginLogo = By.xpath("//div/h5");
+    private final By loginLogo = By.xpath("//div/h5");
 
     public By getLoginLogo() {
         return loginLogo;

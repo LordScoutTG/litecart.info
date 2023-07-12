@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import static pageObject.helpers.WebDriverContainer.setDriver;
 
 public class MainPage {
-    private By avatarVisible = By.xpath("//div//p[@class='oxd-userdropdown-name']");
+    private final By avatarVisible = By.xpath("//div//p[@class='oxd-userdropdown-name']");
 
-    private By logoutButton = By.xpath("//li//a[@href='/web/index.php/auth/logout']");
+    private final By logoutButton = By.xpath("//li//a[@href='/web/index.php/auth/logout']");
 
     public By getAvatarVisible() {
         return avatarVisible;
