@@ -10,7 +10,7 @@ import pageObject.helpers.WebDriverContainer;
 
 import java.time.Duration;
 
-public class LoginOrangeTest extends TestBase{
+public class LoginOrangeTest extends TestBase {
 
     @Test
     public void loginTest() {
@@ -39,5 +39,27 @@ public class LoginOrangeTest extends TestBase{
         mainPage.logoutButtonClick();
         wait.until(ExpectedConditions.presenceOfElementLocated(loginPage.getLoginLogo()));
         Assert.assertTrue(loginPage.loginLogoVisible(), "No Login displayed");
+    }
+
+    @Test
+    public void pimChangesTest() {
+        LoginPage loginPage = new LoginPage();
+        MainPage mainPage = new MainPage();
+        WebDriverWait wait = new WebDriverWait(WebDriverContainer.setDriver(), Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(loginPage.getUserNameInput()));
+        loginPage.attemptLogin("Admin", "admin123");
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getDirectoryButton()));
+        mainPage.pimButtonClick();
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getAddPimButton()));
+        mainPage.addPimButtonClick();
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getAddPimFirstName()));
+        mainPage.addPimFirstName();
+        mainPage.addPimMiddleName();
+        mainPage.addPimLastName();
+        mainPage.submitPimButtonClick();
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getDirectoryButton()));
+        mainPage.pimButtonClick();
+        wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.getAddPimButton()));
+        mainPage.isPimAdded();
     }
 }

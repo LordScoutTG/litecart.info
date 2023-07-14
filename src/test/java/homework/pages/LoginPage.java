@@ -14,19 +14,20 @@ public class LoginPage {
     public By getLoginLogo() {
         return loginLogo;
     }
+
     public By getUserNameInput() {
         return userNameInput;
     }
 
-    public void userNameInput(String userName){
+    public void userNameInput(String userName) {
         setDriver().findElement(userNameInput).sendKeys(userName);
     }
 
-    public void passwordInput(String password){
+    public void passwordInput(String password) {
         setDriver().findElement(passwordInput).sendKeys(password);
     }
 
-    public void clickLoginButton(){
+    public void clickLoginButton() {
         setDriver().findElement(loginButton).click();
     }
 
@@ -36,7 +37,7 @@ public class LoginPage {
         clickLoginButton();
     }
 
-    public boolean loginLogoVisible(){
+    public boolean loginLogoVisible() {
         return setDriver().findElement(loginLogo).isDisplayed();
     }
 }
