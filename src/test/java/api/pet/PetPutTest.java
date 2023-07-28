@@ -1,11 +1,14 @@
 package api.pet;
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class PetPutTest {
     private final static String URL = "https://petstore.swagger.io/";
@@ -42,15 +45,53 @@ public class PetPutTest {
     }
 
     @Test
-    void userUpdatePositiveTest(){
+    void petNegativePutTest(){
         api.reqres.Specifications.installSpecifications(api.reqres.Specifications.requestSpecification(URL), Specifications.uniqueSpecification(200));
-        UserData user2 = new UserData("Romul");
-        SuccessUserReg successUpdate = given()
-                .body(user2)
+        PetData brokenPet = new PetData();
+        brokenPet.setId(1);
+
+
+        PetData responsePet = given()
+                .body(brokenPet)
                 .when()
-                .put(URL + "v2/user/Ramul")
+                .post(URL + "v2/pet")
                 .then().log().all()
-                .extract().as(SuccessUserReg.class);
+                .extract().as(PetData.class);
 
     }
+
+
+
+        @Test
+        public void testCreateExistingPet() {
+            api.reqres.Specifications.installSpecifications(api.reqres.Specifications.requestSpecification(URL), Specifications.uniqueSpecification(404));
+            // Создаем запрос с информацией о питомце, который уже существует
+            String requestBody = "{\"id\": 1, \"name\": \"Fluffy\", \"status\": \"available\"}";
+
+            Response response = RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(requestBody)
+                    .when()
+                    .post(URL + "v2/pet");
+
+            Assert.assertTrue(response.getBody().asString().contains("Duplicate pet id"));
+        }
+    private static final String API_KEY = "your-api-key";
+    @Test
+    public void testNegativeScenarioWithPostRequest() {
+        given()
+                .baseUri(URL)
+                .header("api_key", API_KEY)
+                .contentType("application/json")
+                .body("{\"name\": \"Bobby\"}")
+                .when()
+                .post("pet")
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("Method Not Allowed"));
+    }
+
 }
+
+
+

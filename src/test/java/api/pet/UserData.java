@@ -22,6 +22,8 @@ public class UserData {
         this.userStatus = userStatus;
     }
 
+
+
     public UserData(String username) {
         this.username = username;
     }
