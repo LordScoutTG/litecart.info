@@ -19,7 +19,8 @@ public class PetData {
         this.status = status;
     }
 
-    public PetData() {
+    public PetData(int id) {
+        this.id = id;
     }
 
     public int getId() {

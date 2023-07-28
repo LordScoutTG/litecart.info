@@ -12,6 +12,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class PetPutTest {
     private final static String URL = "https://petstore.swagger.io/";
+    private static final String BASE_URL = "https://petstore.swagger.io/v2";
+    private static final String API_KEY = "your-api-key";
 
     @Test
     void petPositivePutTest() {
@@ -46,17 +48,17 @@ public class PetPutTest {
 
     @Test
     void petNegativePutTest(){
-        api.reqres.Specifications.installSpecifications(api.reqres.Specifications.requestSpecification(URL), Specifications.uniqueSpecification(200));
-        PetData brokenPet = new PetData();
-        brokenPet.setId(1);
+        api.reqres.Specifications.installSpecifications(api.reqres.Specifications.requestSpecification(URL), Specifications.uniqueSpecification(400));
 
 
-        PetData responsePet = given()
-                .body(brokenPet)
+
+
+        BadInput responsePet = given()
+                .body(new PetData(0))
                 .when()
-                .post(URL + "v2/pet")
+                .put(URL + "v2/pet")
                 .then().log().all()
-                .extract().as(PetData.class);
+                .extract().as(BadInput.class);
 
     }
 
@@ -76,22 +78,56 @@ public class PetPutTest {
 
             Assert.assertTrue(response.getBody().asString().contains("Duplicate pet id"));
         }
-    private static final String API_KEY = "your-api-key";
-    @Test
-    public void testNegativeScenarioWithPostRequest() {
-        given()
-                .baseUri(URL)
-                .header("api_key", API_KEY)
-                .contentType("application/json")
-                .body("{\"name\": \"Bobby\"}")
-                .when()
-                .post("pet")
-                .then()
-                .statusCode(404)
-                .body("message", equalTo("Method Not Allowed"));
+//    private static final String API_KEY = "your-api-key";
+//    @Test
+//    public void testNegativeScenarioWithPostRequest() {
+//        given()
+//                .baseUri(URL)
+//                .header("api_key", API_KEY)
+//                .contentType("application/json")
+//                .body("{\"name\": \"Bobby\"}")
+//                .when()
+//                .post("v2/pet")
+//                .then()
+//                .statusCode(404)
+//                .extract().as(BadInput.class);
+//    }
+
+
+
+
+
+        @Test
+        public void testNegativeScenarioWithPutRequest() {
+            given()
+                    .baseUri(BASE_URL)
+                    .header("api_key", API_KEY)
+                    .contentType("application/json")
+                    .body("{\"name\": \"Bobby\"}")
+                    .when()
+                    .put("/pet/10001") // Assuming 10001 is an existing pet ID
+                    .then()
+                    .statusCode(400)
+                    .body("message", equalTo("Invalid input"));
+        }
+
+        @Test
+        public void testNegativeScenarioWithPostRequest() {
+            given()
+                    .baseUri(BASE_URL)
+                    .header("api_key", API_KEY)
+                    .contentType("application/json")
+                    .body("{\"name\": \"Bobby\"}")
+                    .when()
+                    .post("/pet")
+                    .then()
+                    .statusCode(405)
+                    .body("message", equalTo("Method Not Allowed"));
+        }
     }
 
-}
+
+
 
 
 
