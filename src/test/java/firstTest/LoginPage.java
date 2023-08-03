@@ -1,9 +1,10 @@
 package firstTest;//package firstTest;
-//
-//import firstTest.helpers.ScreenshotListener;
-//import org.testng.annotations.Listeners;
-//
-//@Listeners(ScreenshotListener.class)
-//
-//public class LoginPage {
-//}
+
+
+import org.testng.annotations.Listeners;
+import pageObject.helpers.ScreenshotListener;
+
+@Listeners(ScreenshotListener.class)
+
+public class LoginPage {
+}
