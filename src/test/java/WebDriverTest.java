@@ -1,6 +1,6 @@
-import org.testng.annotations.Test;
-
-public class WebDriverTest {
+//import org.testng.annotations.Test;
+//
+//public class WebDriverTest {
 //    private WebDriver driver;
 
 //    @BeforeMethod
@@ -8,8 +8,8 @@ public class WebDriverTest {
 //        driver = new ChromeDriver();
 //    }
 
-    @Test
-    public void webDriverTest() {
+//    @Test
+//    public void webDriverTest() {
 //        open("https://sevstom.ru");
 //        $("[id=f_email").sendKeys("oman@wee.ru");
 
@@ -46,11 +46,11 @@ public class WebDriverTest {
 //
 //        WebElement element = (new WebDriverWait(driver, Duration.ofSeconds(5)))
 //                .until(ExpectedConditions.presenceOfElementLocated(By.id("f_email"))); // Ожидание элемента. Если найдёт раньше - исполнит раньше
-//        element.sendKeys("Roman@wee.ru");
-    }
-
-//    @AfterMethod
-//    public void quit() {
-//        driver.quit();
+////        element.sendKeys("Roman@wee.ru");
 //    }
-}
+//
+////    @AfterMethod
+////    public void quit() {
+////        driver.quit();
+////    }
+//}

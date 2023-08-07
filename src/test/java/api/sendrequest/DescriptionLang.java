@@ -1,6 +1,11 @@
 package api.sendrequest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
 public class DescriptionLang {
-    private String translation_lang;
+    @JsonProperty("translation_lang")
+    private String translationLang;
     private String translation;
 }
