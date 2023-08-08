@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static pageObject.helpers.Locators.getLocator;
+
 @Epic("Regression Tests")
 @Feature("Vertical Menu Tests")
 public class VerticalMenuTest extends TestBase{
@@ -21,7 +23,7 @@ public class VerticalMenuTest extends TestBase{
     @Story("Links tests")
     void successVerticalMenuRDLinkClick(){
         VerticalMenu.clickVerticalMenuRDLink(driver);
-        Assert.assertTrue(RubberDucks.rubberDuckTitleIsVisible(driver), "Unsuccessful link click");
+        Assert.assertTrue(RubberDucksPage.rubberDuckTitleIsVisible(driver), "Unsuccessful link click");
     }
 
     @Test(description="Checking successful click on checkbox in Vertical Menu")
@@ -76,5 +78,34 @@ public class VerticalMenuTest extends TestBase{
         VerticalMenu.queryInput(driver, Duck.PURPLEDUCK.value);
         new Actions(driver).sendKeys(Keys.ENTER).perform();
         Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), Duck.PURPLEDUCK.value);
+    }
+    @Test(description = "Checking correct Customer Service link click in Vertical Menu")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Links tests")
+    void successCustomerServiceLinkClick(){
+        VerticalMenu.verticalCustomerServiceLinkClick(driver);
+        Assert.assertEquals(CustomerServicePage.getCustomerServiceTitle(driver), CustomerServicePage.customerServiceText);
+        Assert.assertEquals(CustomerServicePage.getContactUsTitle(driver), CustomerServicePage.contactUsText);
+    }
+    @Test(description = "Checking correct Order History link click in Vertical Menu")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Links tests")
+    void successOrderHistoryLinkClick(){
+        VerticalMenu.verticalOrderHistoryLinkClick(driver);
+        Assert.assertEquals(OrderHistoryPage.getOrderHistoryPageTitle(driver), OrderHistoryPage.orderHistoryTitleText);
+    }
+    @Test(description = "Checking correct Edit Account link click in Vertical Menu")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Links tests")
+    void successEditAccountLinkClick(){
+        VerticalMenu.verticalEditAccountLinkClick(driver);
+        Assert.assertEquals(EditAccountPage.getEditAccountTitle(driver), EditAccountPage.editAccountTitleText);
+    }
+    @Test(description = "Checking correct Logout link click in Vertical Menu")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Links tests")
+    void successLogoutLinkClick() throws Exception {
+        VerticalMenu.verticalLogoutLinkClick(driver);
+        Assert.assertEquals(driver.findElement(getLocator("HomePage.successMessage")).getText(), LoginPage.logoutMessage);
     }
 }

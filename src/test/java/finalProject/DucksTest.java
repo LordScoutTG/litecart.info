@@ -1,8 +1,8 @@
 package finalProject;
 
+import finalProject.helpers.DataProviderClass;
 import finalProject.pages.*;
 import io.qameta.allure.*;
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-
 import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Epic("Regression Tests")
 @Feature("Ducks Tests")
@@ -39,10 +39,43 @@ public class DucksTest extends TestBase{
         HomePage.searchDucksWithCheaperPrice(driver).forEach(x-> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
     }
 
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successMainPageMostPopularDuckClick(String duckName){
+        LOG.debug("Checking correct click on most popular duck at Main Page");
+        HomePage.clickOnMostPopularDuck(driver, duckName);
+        Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), duckName);
+    }
+    @Test(description = "Checking correct name sort button click")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successRDSortByName(){
+        LOG.info("Checking correct name sort button click");
+        VerticalMenu.clickVerticalMenuRDLink(driver);
+        RubberDucksPage.assertNameIsOnOrClick(driver);
+        List<String> sortedNames = RubberDucksPage.searchDuckNamesList(driver).stream().sorted().collect(Collectors.toList());
+        for(int i = 0; i < sortedNames.size(); i++){
+            Assert.assertTrue(sortedNames.get(i).equals(RubberDucksPage.searchDuckNamesList(driver).get(i)));
+        }
+    }
+    @Test(description = "Checking correct price sort button click")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successRDSortByPrice(){
+        LOG.info("Checking correct price sort button click");
+        VerticalMenu.clickVerticalMenuRDLink(driver);
+        RubberDucksPage.assertPriceIsOnOrClick(driver);
+        List<Integer> sortedPrices = RubberDucksPage.searchDuckPriceList(driver).stream().sorted().collect(Collectors.toList());
+        for(int i = 0; i < sortedPrices.size(); i++){
+            Assert.assertTrue(sortedPrices.get(i).equals(RubberDucksPage.searchDuckPriceList(driver).get(i)));
+        }
+    }
+
     @Test(description="Checking currency change from USD to EURO")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Currency Tests")
-    void successCurrencyChange() throws InterruptedException {
+    void successCurrencyChange() {
         HomePage.regSettingsChangeLinkClick(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         LOG.debug("Waiting for currency selector appeared");

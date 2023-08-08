@@ -29,6 +29,13 @@ public class HomePage extends TestBase {
     public static final By duckWithCheaperPrice = By.xpath("//*[@class=\"campaign-price\"]/parent::div/preceding::div[2]");
 
 
+    public static By getMostPopularDuckLocator(String duckName){
+        return By.xpath(String.format("//div[@id=\"box-most-popular\"]//a[@title='%s'][div]", duckName));
+    }
+
+
+
+
 
 
     @Step("Verify successful login")
@@ -73,6 +80,12 @@ public class HomePage extends TestBase {
     public static List<WebElement> searchDucksWithCheaperPrice(WebDriver driver){
         LOG.info("Searching for ducks with cheaper price");
         return new ArrayList<>(driver.findElements(duckWithCheaperPrice));
+    }
+
+    @Step("Clicking on Most Popular Duck at Main Page")
+    public static void clickOnMostPopularDuck(WebDriver driver, String duckName){
+        LOG.info("Clicking on Most Popular Duck at Main Page");
+        driver.findElement(getMostPopularDuckLocator(duckName)).click();
     }
 }
 

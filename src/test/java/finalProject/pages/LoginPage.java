@@ -9,6 +9,8 @@ import static finalProject.helpers.Locators.getLocator;
 
 public class LoginPage extends TestBase {
 
+    public static final String logoutMessage = "You are now logged out.";
+
     public static void setEmailInput(WebDriver driver, String email) throws Exception {
         LOG.debug("Writing login email");
         driver.findElement(getLocator("LoginPage.emailInput")).sendKeys(email);
@@ -31,6 +33,7 @@ public class LoginPage extends TestBase {
         setPasswordInput(driver, password);
         clickLoginButton(driver);
     }
+
     public static boolean unSuccessMessageIsVisible(WebDriver driver) throws Exception {
         LOG.info("Checking unsuccessful message");
         return driver.findElement(getLocator("LoginPage.unSuccessMessage")).isDisplayed();
