@@ -12,11 +12,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Epic("Regression Tests")
 @Feature("Ducks Tests")
-public class DucksTest extends TestBase{
+public class DucksTest extends TestBase {
 
     @BeforeMethod
     void login() throws Exception {
@@ -26,53 +27,55 @@ public class DucksTest extends TestBase{
     @Test(description = "Checking correct sticker Sale placing")
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
-    void successSaleStickerOnDuck(){
+    void successSaleStickerOnDuck() {
         LOG.debug("Comparing if every Sale duck is YELLOW");
-        HomePage.searchDucksWithOnSaleSticker(driver).forEach(x->Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
+        HomePage.searchDucksWithOnSaleSticker(driver).forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
     }
 
     @Test(description = "Checking correct lower price for Sale ducks")
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
-    void successCheaperPriceOnSaleDuck(){
+    void successCheaperPriceOnSaleDuck() {
         LOG.debug("Comparing if every cheap price duck is YELLOW");
-        HomePage.searchDucksWithCheaperPrice(driver).forEach(x-> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
+        HomePage.searchDucksWithCheaperPrice(driver).forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
     }
 
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
-    void successMainPageMostPopularDuckClick(String duckName){
+    void successMainPageMostPopularDuckClick(String duckName) {
         LOG.debug("Checking correct click on most popular duck at Main Page");
         HomePage.clickOnMostPopularDuck(driver, duckName);
         Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), duckName);
     }
+
     @Test(description = "Checking correct name sort button click")
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
-    void successRDSortByName(){
+    void successRDSortByName() {
         LOG.info("Checking correct name sort button click");
         VerticalMenu.clickVerticalMenuRDLink(driver);
         RubberDucksPage.assertNameIsOnOrClick(driver);
         List<String> sortedNames = RubberDucksPage.searchDuckNamesList(driver).stream().sorted().collect(Collectors.toList());
-        for(int i = 0; i < sortedNames.size(); i++){
+        for (int i = 0; i < sortedNames.size(); i++) {
             Assert.assertTrue(sortedNames.get(i).equals(RubberDucksPage.searchDuckNamesList(driver).get(i)));
         }
     }
+
     @Test(description = "Checking correct price sort button click")
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
-    void successRDSortByPrice(){
+    void successRDSortByPrice() {
         LOG.info("Checking correct price sort button click");
         VerticalMenu.clickVerticalMenuRDLink(driver);
         RubberDucksPage.assertPriceIsOnOrClick(driver);
         List<Integer> sortedPrices = RubberDucksPage.searchDuckPriceList(driver).stream().sorted().collect(Collectors.toList());
-        for(int i = 0; i < sortedPrices.size(); i++){
+        for (int i = 0; i < sortedPrices.size(); i++) {
             Assert.assertTrue(sortedPrices.get(i).equals(RubberDucksPage.searchDuckPriceList(driver).get(i)));
         }
     }
 
-    @Test(description="Checking currency change from USD to EURO")
+    @Test(description = "Checking currency change from USD to EURO")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Currency Tests")
     void successCurrencyChange() {
@@ -88,5 +91,43 @@ public class DucksTest extends TestBase{
         LOG.debug("Waiting for elements on page appeared after saving");
         wait.until(ExpectedConditions.presenceOfElementLocated(HomePage.euroPriceSymbols));
         HomePage.searchEuroPriceSymbols(driver).forEach(x -> Assert.assertTrue(x.getText().contains("€")));
+    }
+
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successDuckPageClick(String duckName) {
+        LOG.info("Checking correct click on duck at Duck Page");
+        VerticalMenu.clickVerticalMenuRDLink(driver);
+        RubberDucksPage.clickOnDuck(driver, duckName);
+        Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), duckName);
+    }
+
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successDuckArrowUpQuantity(String duckName) {
+        LOG.info("Checking correct click arrow UP Quantity at Duck Page");
+        VerticalMenu.clickVerticalMenuRDLink(driver);
+        RubberDucksPage.clickOnDuck(driver, duckName);
+        RubberDucksPage.clickOnQuantityInput(driver);
+        Actions actions = new Actions(driver);
+        for (Integer i = 1; i <= 3; i++) {
+            actions.sendKeys(Keys.ARROW_UP).perform();
+            Assert.assertEquals(RubberDucksPage.getQuantityFromInput(driver), i + 1);
+        }
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successDuckSendKeysQuantity(String duckName) {
+        LOG.debug("Checking correct sending keys to Quantity at Duck Page");
+        VerticalMenu.clickVerticalMenuRDLink(driver);
+        RubberDucksPage.clickOnDuck(driver, duckName);
+        RubberDucksPage.setQuantityByKeys(driver);
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck(driver);
+        RubberDucksPage.clickOnDuckQuantitySubmit(driver);
+        Assert.assertEquals(RubberDucksPage.getQuantityFromCart(driver),String.valueOf(RubberDucksPage.quantityOrder));
     }
 }

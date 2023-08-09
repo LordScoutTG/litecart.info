@@ -11,6 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 
+import java.util.concurrent.TimeUnit;
+
 
 @Listeners(ScreenshotListener.class)
 public class TestBase {
@@ -35,6 +37,7 @@ public class TestBase {
 
 
         driver.manage().window().maximize();
+        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
         driver.get("https://litecart.stqa.ru/en/");
     }
 
