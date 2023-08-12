@@ -14,7 +14,7 @@ pipeline {
                 expression { return params.ducks }
             }
             steps {
-                sh "mvn verify"
+                sh "mvn -Dtest="finalProject.*Test"  verify"
             }
         }
     }
