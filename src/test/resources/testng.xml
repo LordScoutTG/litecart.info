@@ -3,7 +3,7 @@
 <suite name="FinalProject" verbose="5">
   <test name="Regression tests" parallel="true" thread-count="5">
     <classes>
-      <class name="DucksTest"/>
+      <class name="finalProject.DucksTest"/>
     </classes>
   </test>  
 </suite>

@@ -2,7 +2,6 @@ package finalProject.pages;
 
 import finalProject.TestBase;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 
 import static finalProject.helpers.Locators.getLocator;
 import static finalProject.helpers.WebDriverContainer.setDriver;
