@@ -5,37 +5,38 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 import static finalProject.helpers.Locators.getLocator;
+import static finalProject.helpers.WebDriverContainer.setDriver;
 
 
 public class LoginPage extends TestBase {
 
     public static final String logoutMessage = "You are now logged out.";
 
-    public static void setEmailInput(WebDriver driver, String email) throws Exception {
+    public static void setEmailInput(String email) throws Exception {
         LOG.debug("Writing login email");
-        driver.findElement(getLocator("LoginPage.emailInput")).sendKeys(email);
+        setDriver().findElement(getLocator("LoginPage.emailInput")).sendKeys(email);
     }
 
-    public static void setPasswordInput(WebDriver driver, String password) throws Exception {
+    public static void setPasswordInput(String password) throws Exception {
         LOG.debug("Writing login password");
-        driver.findElement(getLocator("LoginPage.passwordInput")).sendKeys(password);
+        setDriver().findElement(getLocator("LoginPage.passwordInput")).sendKeys(password);
     }
 
-    public static void clickLoginButton(WebDriver driver) throws Exception {
+    public static void clickLoginButton() throws Exception {
         LOG.debug("Clicking login button");
-        driver.findElement(getLocator("LoginPage.loginButton")).click();
+        setDriver().findElement(getLocator("LoginPage.loginButton")).click();
     }
 
     @Step("Login step with email: {1}, password: {2}, for method: {method}")
-    public static void attemptLogin(WebDriver driver, String email, String password) throws Exception {
+    public static void attemptLogin(String email, String password) throws Exception {
         LOG.info("Attempting login");
-        setEmailInput(driver, email);
-        setPasswordInput(driver, password);
-        clickLoginButton(driver);
+        setEmailInput(email);
+        setPasswordInput(password);
+        clickLoginButton();
     }
 
-    public static boolean unSuccessMessageIsVisible(WebDriver driver) throws Exception {
+    public static boolean unSuccessMessageIsVisible() throws Exception {
         LOG.info("Checking unsuccessful message");
-        return driver.findElement(getLocator("LoginPage.unSuccessMessage")).isDisplayed();
+        return setDriver().findElement(getLocator("LoginPage.unSuccessMessage")).isDisplayed();
     }
 }

@@ -6,7 +6,7 @@ import static java.lang.Integer.parseInt;
 
 public class Main {
     public static void main(String[] args) {
-        // получает от пользователя 2 числа и должна их сложить (предварительно проверить вводимое)
+    // получает от пользователя 2 числа и должна их сложить (предварительно проверить вводимое)
         String str;
         String str1;
         Integer result = 0;

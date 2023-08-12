@@ -3,8 +3,10 @@ package finalProject.helpers;
 import finalProject.TestBase;
 import io.qameta.allure.Allure;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -13,12 +15,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ScreenshotListener extends TestBase implements ITestListener  {
-
+public class ScreenshotListener implements ITestListener  {
+    Logger LOG = Logger.getLogger(ScreenshotListener.class);
 
     @Override
     public void onTestFailure(ITestResult testResult) {
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        File screenshot = ((TakesScreenshot) WebDriverContainer.setDriver()).getScreenshotAs(OutputType.FILE);
         try {
             Allure.addAttachment(testResult.getTestName() + " screenshot", new FileInputStream(screenshot));
         } catch (FileNotFoundException e) {

@@ -12,8 +12,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static finalProject.helpers.WebDriverContainer.setDriver;
 
 @Epic("Regression Tests")
 @Feature("Ducks Tests")
@@ -21,7 +22,7 @@ public class DucksTest extends TestBase {
 
     @BeforeMethod
     void login() throws Exception {
-        LoginPage.attemptLogin(driver, "1123@123.com", "adDA12341");
+        LoginPage.attemptLogin("1123@123.com", "adDA12341");
     }
 
     @Test(description = "Checking correct sticker Sale placing")
@@ -29,7 +30,7 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successSaleStickerOnDuck() {
         LOG.debug("Comparing if every Sale duck is YELLOW");
-        HomePage.searchDucksWithOnSaleSticker(driver).forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
+        HomePage.searchDucksWithOnSaleSticker().forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
     }
 
     @Test(description = "Checking correct lower price for Sale ducks")
@@ -37,7 +38,7 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successCheaperPriceOnSaleDuck() {
         LOG.debug("Comparing if every cheap price duck is YELLOW");
-        HomePage.searchDucksWithCheaperPrice(driver).forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
+        HomePage.searchDucksWithCheaperPrice().forEach(x -> Assert.assertEquals(x.getText(), Duck.YELLOWDUCK.value));
     }
 
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
@@ -45,8 +46,8 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successMainPageMostPopularDuckClick(String duckName) {
         LOG.debug("Checking correct click on most popular duck at Main Page");
-        HomePage.clickOnMostPopularDuck(driver, duckName);
-        Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), duckName);
+        HomePage.clickOnMostPopularDuck(duckName);
+        Assert.assertEquals(HomePage.duckTitleIsCorrect(), duckName);
     }
 
     @Test(description = "Checking correct name sort button click")
@@ -54,11 +55,11 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successRDSortByName() {
         LOG.info("Checking correct name sort button click");
-        VerticalMenu.clickVerticalMenuRDLink(driver);
-        RubberDucksPage.assertNameIsOnOrClick(driver);
-        List<String> sortedNames = RubberDucksPage.searchDuckNamesList(driver).stream().sorted().collect(Collectors.toList());
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.assertNameIsOnOrClick();
+        List<String> sortedNames = RubberDucksPage.searchDuckNamesList().stream().sorted().collect(Collectors.toList());
         for (int i = 0; i < sortedNames.size(); i++) {
-            Assert.assertTrue(sortedNames.get(i).equals(RubberDucksPage.searchDuckNamesList(driver).get(i)));
+            Assert.assertTrue(sortedNames.get(i).equals(RubberDucksPage.searchDuckNamesList().get(i)));
         }
     }
 
@@ -67,11 +68,11 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successRDSortByPrice() {
         LOG.info("Checking correct price sort button click");
-        VerticalMenu.clickVerticalMenuRDLink(driver);
-        RubberDucksPage.assertPriceIsOnOrClick(driver);
-        List<Integer> sortedPrices = RubberDucksPage.searchDuckPriceList(driver).stream().sorted().collect(Collectors.toList());
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.assertPriceIsOnOrClick();
+        List<Integer> sortedPrices = RubberDucksPage.searchDuckPriceList().stream().sorted().collect(Collectors.toList());
         for (int i = 0; i < sortedPrices.size(); i++) {
-            Assert.assertTrue(sortedPrices.get(i).equals(RubberDucksPage.searchDuckPriceList(driver).get(i)));
+            Assert.assertTrue(sortedPrices.get(i).equals(RubberDucksPage.searchDuckPriceList().get(i)));
         }
     }
 
@@ -79,18 +80,18 @@ public class DucksTest extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Currency Tests")
     void successCurrencyChange() {
-        HomePage.regSettingsChangeLinkClick(driver);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        HomePage.regSettingsChangeLinkClick();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
         LOG.debug("Waiting for currency selector appeared");
         wait.until(ExpectedConditions.presenceOfElementLocated(HomePage.currencySelector));
-        HomePage.currencySelectorClick(driver);
-        Actions actions = new Actions(driver);
+        HomePage.currencySelectorClick();
+        Actions actions = new Actions(setDriver());
         LOG.debug("Choosing EURO by clicking keys");
         actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
-        HomePage.submitSettingsButtonClick(driver);
+        HomePage.submitSettingsButtonClick();
         LOG.debug("Waiting for elements on page appeared after saving");
         wait.until(ExpectedConditions.presenceOfElementLocated(HomePage.euroPriceSymbols));
-        HomePage.searchEuroPriceSymbols(driver).forEach(x -> Assert.assertTrue(x.getText().contains("€")));
+        HomePage.searchEuroPriceSymbols().forEach(x -> Assert.assertTrue(x.getText().contains("€")));
     }
 
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
@@ -98,9 +99,18 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successDuckPageClick(String duckName) {
         LOG.info("Checking correct click on duck at Duck Page");
-        VerticalMenu.clickVerticalMenuRDLink(driver);
-        RubberDucksPage.clickOnDuck(driver, duckName);
-        Assert.assertEquals(HomePage.duckTitleIsCorrect(driver), duckName);
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        Assert.assertEquals(HomePage.duckTitleIsCorrect(), duckName);
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.MINOR)
+    @Story("Ducks shopping tests")
+    void successAddToCartButtonText(String duckName){
+        LOG.info("Checking correct Add To Cart button text");
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        Assert.assertEquals(RubberDucksPage.getAddToCartButtonText(), RubberDucksPage.duckQuantitySubmitButtonText);
     }
 
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
@@ -108,13 +118,13 @@ public class DucksTest extends TestBase {
     @Story("Ducks shopping tests")
     void successDuckArrowUpQuantity(String duckName) {
         LOG.info("Checking correct click arrow UP Quantity at Duck Page");
-        VerticalMenu.clickVerticalMenuRDLink(driver);
-        RubberDucksPage.clickOnDuck(driver, duckName);
-        RubberDucksPage.clickOnQuantityInput(driver);
-        Actions actions = new Actions(driver);
-        for (Integer i = 1; i <= 3; i++) {
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.clickOnQuantityInput();
+        Actions actions = new Actions(setDriver());
+        for (int i = 1; i <= 3; i++) {
             actions.sendKeys(Keys.ARROW_UP).perform();
-            Assert.assertEquals(RubberDucksPage.getQuantityFromInput(driver), i + 1);
+            Assert.assertEquals(RubberDucksPage.getQuantityFromInput(), i + 1);
         }
     }
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
@@ -123,11 +133,21 @@ public class DucksTest extends TestBase {
     @Flaky
     void successDuckSendKeysQuantity(String duckName) {
         LOG.debug("Checking correct sending keys to Quantity at Duck Page");
-        VerticalMenu.clickVerticalMenuRDLink(driver);
-        RubberDucksPage.clickOnDuck(driver, duckName);
-        RubberDucksPage.setQuantityByKeys(driver);
-        RubberDucksPage.assertStockStatusAndChooseLargeDuck(driver);
-        RubberDucksPage.clickOnDuckQuantitySubmit(driver);
-        Assert.assertEquals(RubberDucksPage.getQuantityFromCart(driver),String.valueOf(RubberDucksPage.quantityOrder));
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        Assert.assertEquals(RubberDucksPage.getQuantityFromCart(),String.valueOf(RubberDucksPage.quantityOrder));
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    void successDuckDetailColor(String duckName){
+        LOG.info("Checking correct duck details color");
+        VerticalMenu.clickVerticalMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.duckDetailButtonClick();
+        Assert.assertEquals(RubberDucksPage.getDuckColorTextFromDetails(), duckName.contains(" ") ? duckName.split(" ")[0] : duckName);
     }
 }

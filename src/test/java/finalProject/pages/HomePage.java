@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static finalProject.helpers.Locators.getLocator;
+import static finalProject.helpers.WebDriverContainer.setDriver;
 
 
 public class HomePage extends TestBase {
@@ -39,53 +40,53 @@ public class HomePage extends TestBase {
 
 
     @Step("Verify successful login")
-    public static boolean successMessageIsVisible(WebDriver driver) throws Exception {
+    public static boolean successMessageIsVisible() throws Exception {
         LOG.info("Checking success message");
-        return driver.findElement(getLocator("HomePage.successMessage")).isDisplayed();
+        return setDriver().findElement(getLocator("HomePage.successMessage")).isDisplayed();
     }
     @Step("Clicking on regional settings")
-    public static void regSettingsChangeLinkClick(WebDriver driver){
+    public static void regSettingsChangeLinkClick(){
         LOG.info("Clicking on regional settings");
-        driver.findElement(regSettingsChangeLink).click();
+        setDriver().findElement(regSettingsChangeLink).click();
     }
     @Step("Clicking on currency selection")
-    public static void currencySelectorClick(WebDriver driver){
+    public static void currencySelectorClick(){
         LOG.info("Clicking on currency selection");
-        driver.findElement(currencySelector).click();
+        setDriver().findElement(currencySelector).click();
     }
     @Step("Saving currency selection")
-    public static void submitSettingsButtonClick(WebDriver driver){
+    public static void submitSettingsButtonClick(){
         LOG.info("Saving currency selection");
-        driver.findElement(submitSettingsButton).click();
+        setDriver().findElement(submitSettingsButton).click();
     }
     @Step("Searching for euro elements in goods")
-    public static List<WebElement> searchEuroPriceSymbols(WebDriver driver){
+    public static List<WebElement> searchEuroPriceSymbols(){
         LOG.info("Searching for euro elements in goods");
-        return new ArrayList<>(driver.findElements(euroPriceSymbols));
+        return new ArrayList<>(setDriver().findElements(euroPriceSymbols));
     }
 
     @Step("Checking if Duck title is visible")
-    public static String duckTitleIsCorrect (WebDriver driver){
+    public static String duckTitleIsCorrect (){
         LOG.info("Checking if Duck title is visible");
-        return driver.findElement(duckPageTitle).getText();
+        return setDriver().findElement(duckPageTitle).getText();
     }
 
     @Step("Searching for ducks with Sale sticker")
-    public static List<WebElement> searchDucksWithOnSaleSticker(WebDriver driver){
+    public static List<WebElement> searchDucksWithOnSaleSticker(){
         LOG.info("Searching for ducks with Sale sticker");
-        return new ArrayList<>(driver.findElements(duckWithOnSaleSticker));
+        return new ArrayList<>(setDriver().findElements(duckWithOnSaleSticker));
     }
 
     @Step("Searching for ducks with cheaper price")
-    public static List<WebElement> searchDucksWithCheaperPrice(WebDriver driver){
+    public static List<WebElement> searchDucksWithCheaperPrice(){
         LOG.info("Searching for ducks with cheaper price");
-        return new ArrayList<>(driver.findElements(duckWithCheaperPrice));
+        return new ArrayList<>(setDriver().findElements(duckWithCheaperPrice));
     }
 
     @Step("Clicking on Most Popular Duck at Main Page")
-    public static void clickOnMostPopularDuck(WebDriver driver, String duckName){
+    public static void clickOnMostPopularDuck(String duckName){
         LOG.info("Clicking on Most Popular Duck at Main Page");
-        driver.findElement(getMostPopularDuckLocator(duckName)).click();
+        setDriver().findElement(getMostPopularDuckLocator(duckName)).click();
     }
 }
 

@@ -21,7 +21,6 @@ public class AddRemoveTest extends TestBase{
     }
 
     @Test
-
     public void successAddingTest() throws Exception {
         AddRemovePage.addButtonClick();
         Assert.assertTrue(AddRemovePage.removeButtonIsVisible(), "There is no DELETE button");

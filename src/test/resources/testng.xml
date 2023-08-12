@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Tests" verbose="5">
-  <test name="Test1">
+<suite name="FinalProject" verbose="5">
+  <test name="Regression tests" parallel="true" thread-count="5">
     <classes>
-      <class name="org.example.SampleTestNgTest"/>
+      <class name="DucksTest"/>
     </classes>
   </test>  
 </suite>

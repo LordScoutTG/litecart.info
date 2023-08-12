@@ -12,8 +12,8 @@ import static io.restassured.RestAssured.*;
 public class SendRequestMeTest {
 
     private final static String URL = "https://send-request.me";
-    private final Integer limit = 3;
-    private final Integer offset = 2;
+    private final int limit = 3;
+    private final int offset = 2;
     private final File CompaniesDataSchema = new File("src/test/java/api/sendrequest/jsonschema/CompaniesDataSchema.json");
 
     @Test
@@ -45,7 +45,7 @@ public class SendRequestMeTest {
         for (int i = 0; i < ids.size(); i++) {
             Assert.assertTrue(ids.get(i).equals(sortedIds.get(i)));
         }
-        Assert.assertEquals(pullCompanies.stream().map(CompaniesData::getCompanyId).findFirst().get(), offset + 1);
+        Assert.assertEquals((int)pullCompanies.stream().map(CompaniesData::getCompanyId).findFirst().get(), offset + 1);
         Assert.assertEquals(ids.size(), limit);
     }
 
