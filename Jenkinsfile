@@ -22,7 +22,7 @@ pipeline {
         always {
             allure ([
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'target/allure-results']]
+                results: [[path: 'allure-results']]
             ])
         }
     }
