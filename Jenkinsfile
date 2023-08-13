@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     tools {
+        jdk "17"
         maven "3.9.4"
     }
     parameters{
