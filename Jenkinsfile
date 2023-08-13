@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk "17"
-        maven "3.9.4"
+        jdk 'Java17'
+        maven '3.9.4'
     }
     parameters{
         booleanParam(defaultValue: true, description: 'run duck tests', name: 'ducks')
