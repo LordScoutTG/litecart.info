@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static finalProject.helpers.WebDriverContainer.getDriver;
 import static finalProject.helpers.WebDriverContainer.setDriver;
 
 @Epic("Regression Tests")
@@ -131,13 +132,14 @@ public class DucksTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
     @Flaky
-    void successDuckSendKeysQuantity(String duckName) {
+    void successDuckSendKeysQuantity(String duckName) throws InterruptedException {
         LOG.debug("Checking correct sending keys to Quantity at Duck Page");
         VerticalMenu.clickVerticalMenuRDLink();
         RubberDucksPage.clickOnDuck(duckName);
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
+        getDriver().wait(1500);
         Assert.assertEquals(RubberDucksPage.getQuantityFromCart(),String.valueOf(RubberDucksPage.quantityOrder));
     }
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
