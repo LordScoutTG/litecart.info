@@ -15,7 +15,7 @@ pipeline {
                 expression { return params.ducks }
             }
             steps {
-                sh 'mvn verify'
+                bat 'mvn verify'
             }
         }
     }
