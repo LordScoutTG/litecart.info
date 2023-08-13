@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 
 
-@Listeners(ScreenshotListener.class)
+
 public class TestBase {
     public static Logger LOG = Logger.getLogger(TestBase.class);
     @BeforeMethod

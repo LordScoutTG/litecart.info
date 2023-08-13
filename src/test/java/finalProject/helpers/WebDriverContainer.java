@@ -22,7 +22,8 @@ public class WebDriverContainer {
             Browsers browser = Browsers.valueOf(System.getProperty("browser", "chrome"));
             System.setProperty("webdriver.http.factory", "jdk-http-client"); // Устраняет ошибку асинхр клиента
             ChromeOptions options = new ChromeOptions();
-//            options.addArguments("--headless");
+            options.addArguments("--headless");
+            options.addArguments("--start-maximized");
             switch (browser) {
                 case chrome:
                     driver.set(ThreadGuard.protect(new ChromeDriver(options)));
