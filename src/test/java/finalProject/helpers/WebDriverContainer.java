@@ -7,9 +7,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ThreadGuard;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
 
 public class WebDriverContainer {
 
@@ -25,7 +22,7 @@ public class WebDriverContainer {
             Browsers browser = Browsers.valueOf(System.getProperty("browser", "chrome"));
             System.setProperty("webdriver.http.factory", "jdk-http-client"); // Устраняет ошибку асинхр клиента
             ChromeOptions options = new ChromeOptions();
-//            options.addArguments("--headless");
+            options.addArguments("--headless");
             options.addArguments("--start-maximized");
             switch (browser) {
                 case chrome:
