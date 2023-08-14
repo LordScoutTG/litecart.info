@@ -3,8 +3,10 @@ package finalProject;
 import finalProject.helpers.DataProviderClass;
 import finalProject.pages.*;
 import io.qameta.allure.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -12,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static finalProject.helpers.WebDriverContainer.getDriver;
@@ -132,15 +135,17 @@ public class DucksTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
     @Flaky
-    void successDuckSendKeysQuantity(String duckName) throws InterruptedException {
+    void successDuckSendKeysQuantity(String duckName) {
         LOG.debug("Checking correct sending keys to Quantity at Duck Page");
         VerticalMenu.clickVerticalMenuRDLink();
         RubberDucksPage.clickOnDuck(duckName);
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        getDriver().wait(1500);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         Assert.assertEquals(RubberDucksPage.getQuantityFromCart(),String.valueOf(RubberDucksPage.quantityOrder));
+        CartPage.cleaningCart();
     }
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
     @Severity(SeverityLevel.NORMAL)

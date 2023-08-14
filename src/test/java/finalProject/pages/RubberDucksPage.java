@@ -20,7 +20,7 @@ public class RubberDucksPage extends TestBase {
     private static final By duckName = By.cssSelector("[class='name']");
     private static final By duckQuantityInput = By.cssSelector("[type='number']");
     private static final By duckQuantitySubmitButton = By.cssSelector("[type='submit']");
-    private static final By cartQuantity = By.cssSelector("[class='content'] > [class='quantity']");
+    public static final By cartQuantity = By.cssSelector("[class='content'] > [class='quantity']");
     private static final By availableStockStatus = By.cssSelector("[class='stock-available']");
     private static final By sizeOptionsMenu = By.cssSelector("[name='options[Size]']");
     private static final By duckDetailButton = By.cssSelector("[href='#tab-details']");

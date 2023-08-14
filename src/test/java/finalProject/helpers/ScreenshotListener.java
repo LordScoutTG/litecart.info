@@ -2,21 +2,14 @@ package finalProject.helpers;
 
 
 import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.model.Status;
 import io.qameta.allure.model.TestResult;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
 import io.qameta.allure.listener.TestLifecycleListener;
-
-
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 
 
 public class ScreenshotListener implements TestLifecycleListener  {

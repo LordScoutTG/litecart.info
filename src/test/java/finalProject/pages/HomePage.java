@@ -27,6 +27,8 @@ public class HomePage extends TestBase {
     public static final By duckWithOnSaleSticker = By.xpath("//*[@title='On Sale']/parent::div/following::div[1]");
 
     public static final By duckWithCheaperPrice = By.xpath("//*[@class=\"campaign-price\"]/parent::div/preceding::div[2]");
+    private static final By cartButton = By.cssSelector("[id='cart']");
+
 
 
     public static By getMostPopularDuckLocator(String duckName){
@@ -87,6 +89,12 @@ public class HomePage extends TestBase {
         LOG.info("Clicking on Most Popular Duck at Main Page");
         setDriver().findElement(getMostPopularDuckLocator(duckName)).click();
     }
+    @Step("Clicking on Cart Button")
+    public static void clickOnCartButton(){
+        LOG.info("Clicking on Cart Button");
+        setDriver().findElement(cartButton).click();
+    }
+
 }
 
 
