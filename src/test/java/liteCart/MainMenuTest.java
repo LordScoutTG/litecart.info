@@ -2,14 +2,12 @@ package liteCart;
 
 import liteCart.pages.*;
 import io.qameta.allure.*;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static liteCart.helpers.WebDriverContainer.setDriver;
-import static liteCart.helpers.Locators.getLocator;
+
 
 @Epic("Regression Tests")
 @Feature("Vertical Menu Tests")
@@ -52,7 +50,7 @@ public class MainMenuTest extends TestBase {
     @Test(description = "Checking correct Logout link click in Main Menu")
     @Severity(SeverityLevel.NORMAL)
     @Story("Links tests")
-    void successLogoutLinkClick() throws Exception {
+    void successLogoutLinkClick(){
         setDriver().findElement(LoginPage.openSignIn).click();
         MainMenu.verticalLogoutLinkClick();
         Assert.assertEquals(setDriver().findElement(HomePage.successMessage).getText(), LoginPage.logoutMessage);
