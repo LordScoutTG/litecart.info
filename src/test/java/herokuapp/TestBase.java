@@ -12,11 +12,11 @@ public class TestBase {
 
     WebDriver driver;
 
-    @BeforeMethod
-    public void initDriver() {
-       driver = WebDriverContainer.setDriver();
-       driver.get("https://the-internet.herokuapp.com/");
-    }
+//    @BeforeMethod
+//    public void initDriver() {
+//       driver = WebDriverContainer.setDriver();
+//       driver.get("https://www.gismeteo.ru/diary/5003/2010/8/");
+//    }
 
     @AfterMethod
     public void teardown() {

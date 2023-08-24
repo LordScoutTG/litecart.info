@@ -7,14 +7,20 @@ import org.openqa.selenium.By;
 import static finalProject.helpers.WebDriverContainer.setDriver;
 
 public class VerticalMenu extends TestBase {
-    private static final By rubberDucksLink = By.xpath("//ul[@class='list-vertical']/li[@class='category-1']/a[@href='https://litecart.stqa.ru/en/rubber-ducks-c-1/']");
-    private static final By queryBox = By.cssSelector("[name='query']");
+    private static final By rubberDucksLink = By
+            .xpath("//ul[@class='list-vertical']/li[@class='category-1']/a[@href='https://litecart.stqa.ru/en/rubber-ducks-c-1/']");
+    private static final By queryBox = By
+            .cssSelector("[name='query']");
     private static final By checkBoxManufacturer = By.cssSelector("label > input");
     private static final By checkBoxChecked = By.cssSelector("label > input[checked='checked']");
-    private static final By verticalCustomerServiceLink = By.xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/customer-service-s-0\"]");
-    private static final By verticalOrderHistoryLink = By.xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/order_history\"]");
-    private static final By verticalEditAccountLink = By.xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/edit_account\"]");
-    private static final By verticalLogoutLink = By.xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/logout\"]");
+    private static final By verticalCustomerServiceLink = By
+            .xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/customer-service-s-0\"]");
+    private static final By verticalOrderHistoryLink = By
+            .xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/order_history\"]");
+    private static final By verticalEditAccountLink = By
+            .xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/edit_account\"]");
+    private static final By verticalLogoutLink = By
+            .xpath("//*[@class='content']//a[@href=\"https://litecart.stqa.ru/en/logout\"]");
 
 
     @Step("Clicking on Rubber Ducks link at Vertical Menu")

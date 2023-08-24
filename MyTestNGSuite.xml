@@ -3,9 +3,9 @@
 <suite name="FinalProject" verbose="5">
     <test name="Regression tests" parallel="methods" thread-count="5">
         <classes>
-            <class name="finalProject.LoginTest"/>
-            <class name="finalProject.VerticalMenuTest"/>
-            <class name="finalProject.DucksTest"/>
+            <class name="liteCart.LoginTest"/>
+            <class name="liteCart.MainMenuTest"/>
+            <class name="liteCart.DucksTest"/>
         </classes>
     </test>
 </suite>

@@ -11,6 +11,7 @@ public class LoginPage extends TestBase {
 
     public static final String logoutMessage = "You are now logged out.";
 
+
     public static void setEmailInput(String email) throws Exception {
         LOG.debug("Writing login email");
         setDriver().findElement(getLocator("LoginPage.emailInput")).sendKeys(email);
