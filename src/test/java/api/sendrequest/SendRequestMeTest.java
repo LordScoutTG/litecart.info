@@ -12,12 +12,11 @@ import static io.restassured.RestAssured.*;
 public class SendRequestMeTest {
 
     private final static String URL = "https://send-request.me";
-    private final int limit = 3;
-    private final int offset = 2;
     private final File CompaniesDataSchema = new File("src/test/java/api/sendrequest/jsonschema/CompaniesDataSchema.json");
 
     @Test
     void activeLimitCompanyTest() {
+        final int limit = 3;
         Specifications.installSpecifications(Specifications.requestSpecification(URL), Specifications.responseSpecificationOK200(CompaniesDataSchema));
         List<CompaniesData> activeCompanies = given()
                 .param("limit", limit)
@@ -32,6 +31,8 @@ public class SendRequestMeTest {
 
     @Test
     void limitOffsetCompanyTest() {
+        final int limit = 3;
+        final int offset = 2;
         Specifications.installSpecifications(Specifications.requestSpecification(URL), Specifications.responseSpecificationOK200(CompaniesDataSchema));
         List<CompaniesData> pullCompanies = given()
                 .param("limit", limit)
@@ -45,15 +46,15 @@ public class SendRequestMeTest {
         for (int i = 0; i < ids.size(); i++) {
             Assert.assertTrue(ids.get(i).equals(sortedIds.get(i)));
         }
-        Assert.assertEquals((int)pullCompanies.stream().map(CompaniesData::getCompanyId).findFirst().get(), offset + 1);
+        Assert.assertEquals((int) pullCompanies.stream().map(CompaniesData::getCompanyId).findFirst().get(), offset + 1);
         Assert.assertEquals(ids.size(), limit);
     }
 
-    private int companyId = 8;
-    private final File badPostRequestSchema = new File("src/test/java/api/sendrequest/jsonschema/BadPostRequestSchema.json");
 
     @Test
     void unsuccessUserPostIdComp() {
+        int companyId = 8;
+        final File badPostRequestSchema = new File("src/test/java/api/sendrequest/jsonschema/BadPostRequestSchema.json");
         Specifications.installSpecifications(Specifications.requestSpecification(URL), Specifications.uniqueSpecification(404, badPostRequestSchema));
         PostUserData incorrectUserIdComp = DataGenerator.getSimpleUser();
 
