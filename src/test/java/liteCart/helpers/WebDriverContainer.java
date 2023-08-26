@@ -22,7 +22,7 @@ public class WebDriverContainer {
             Browsers browser = Browsers.valueOf(System.getProperty("browser", "chrome"));
             System.setProperty("webdriver.http.factory", "jdk-http-client"); // Устраняет ошибку асинхр клиента
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+//            options.addArguments("--headless");
 //            options.addArguments("--start-maximized");
             options.addArguments("window-size=1920x1080");
             switch (browser) {

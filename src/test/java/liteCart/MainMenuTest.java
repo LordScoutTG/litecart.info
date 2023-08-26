@@ -10,7 +10,7 @@ import static liteCart.helpers.WebDriverContainer.setDriver;
 
 
 @Epic("Regression Tests")
-@Feature("Vertical Menu Tests")
+@Feature("Main Menu Tests")
 public class MainMenuTest extends TestBase {
     @BeforeMethod
     void login() throws Exception {

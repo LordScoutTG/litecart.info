@@ -21,6 +21,7 @@ public class HomePage extends TestBase {
     private static final By regSettingsChangeLink = By
             .cssSelector("div > [href=\"https://litecart.info/regional_settings?redirect_url=https%3A%2F%2Flitecart.info%2F#box-regional-settings\"]");
 
+    private static final By accountButton = By.cssSelector("[class=\"fa fa-user-o\"]");
     public static final By currencySelector = By.cssSelector("[name='currency_code']");
 
     private static final By submitSettingsButton = By.cssSelector("button[name='save']");
@@ -35,6 +36,7 @@ public class HomePage extends TestBase {
     public static final By duckWithCheaperPrice = By
             .xpath("//*[@class=\"campaign-price\"]/parent::div/preceding::h4[1]");
     private static final By cartButton = By.cssSelector("[id='cart']");
+    private static final By loginLink = By.cssSelector("[href=\"https://litecart.info/login\"]");
 
 
     public static By getMostPopularDuckLocator(String duckName){
@@ -97,7 +99,17 @@ public class HomePage extends TestBase {
         LOG.info("Clicking on Cart Button");
         setDriver().findElement(cartButton).click();
     }
+    @Step("Clicking Account Button")
+    public static void clickOnAccountButton(){
+        LOG.info("Clicking Account Button");
+        setDriver().findElement(accountButton).click();
+    }
 
+    @Step("Clicking Login footer link")
+    public static void loginLinkClick(){
+        LOG.info("Clicking Login footer link");
+        setDriver().findElement(loginLink).click();
+    }
 }
 
 
