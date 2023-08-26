@@ -20,6 +20,22 @@ public class CartPage extends TestBase {
     private static final By cartText = By.cssSelector("[class=\"text-center\"]");
     public static final By unregisteredErrorMessage = By.cssSelector("[class=\"error\"]");
     public static final String unregisteredErrorNoFirstNameText = "Customer Details: You must enter a first name.";
+    public static final String unregisteredErrorNoLastNameText = "Customer Details: You must enter a last name.";
+    public static final String unregisteredErrorNoAddressText = "Customer Details: You must enter an address.";
+    public static final String unregisteredErrorNoCityText = "Customer Details: You must enter a city.";
+    public static final String unregisteredErrorNoEmailText = "Customer Details: You must enter an email address.";
+    public static final String unregisteredErrorNoPhoneText = "Customer Details: You must enter a phone number.";
+    public static final String unregisteredErrorNoPostCodeText = "Customer Details: You must enter a postcode.";
+    public static final By firstNameCartInput = By.name("firstname");
+    public static final By lastNameCartInput = By.name("lastname");
+    public static final By address1CartInput = By.name("address1");
+    public static final By cityCartInput = By.name("city");
+    public static final By emailCartInput = By.name("email");
+    public static final By phoneCartInput = By.cssSelector("[class=\"input-group\"] [name=\"phone\"]");
+    public static final By postCodeCartInput = By.cssSelector("[class=\"form-control\"][name=\"postcode\"]");
+    private static final By saveChangesButton = By.cssSelector("[name=\"save_customer_details\"][type='submit']");
+    public static final By agreementCheckBoxShoppingForm = By.cssSelector("[class=\"form-check\"][name=\"terms_agreed\"]");
+
 
     @Step("Clicking Remove from Cart button")
     public static void clickRemoveFromCartButton() {
@@ -52,6 +68,12 @@ public class CartPage extends TestBase {
     }
     @Step("Getting unregistered error message text")
     public static String getUnregisteredErrorMessageText(){
+        LOG.info("Getting unregistered error message text");
         return setDriver().findElement(unregisteredErrorMessage).getText();
+    }
+    @Step("Saving shopping cart changes")
+    public static void savingShoppingCartChanges(){
+        LOG.info("Saving shopping cart changes");
+        setDriver().findElement(saveChangesButton).click();
     }
 }

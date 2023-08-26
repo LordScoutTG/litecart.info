@@ -2,7 +2,9 @@ package liteCart;
 
 import io.qameta.allure.*;
 import liteCart.helpers.DataProviderClass;
+import liteCart.helpers.Waiter;
 import liteCart.pages.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -83,8 +85,8 @@ public class UnAuthorisedTest extends TestBase{
     @Severity(SeverityLevel.NORMAL)
     @Story("Ducks shopping tests")
     @Flaky
-    void successDuckSendKeysQuantity(String duckName) {
-        LOG.debug("Checking correct sending keys to Quantity at Duck Page");
+    void successWarningMessageNoFirstNameShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No First Name' in Shopping form");
         LoginPage.acceptCookiesButtonClick();
         MainMenu.clickMainMenuRDLink();
         RubberDucksPage.clickOnDuck(duckName);
@@ -96,6 +98,181 @@ public class UnAuthorisedTest extends TestBase{
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.presenceOfElementLocated(CartPage.unregisteredErrorMessage));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoFirstNameText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoLastNameShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No Last Name' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoLastNameText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoAddressShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No Address' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoAddressText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoCityShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No City' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoCityText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoEmailShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No Email' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
+        setDriver().findElement(CartPage.cityCartInput).sendKeys("Rome");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoEmailText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoPhoneShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No Phone' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
+        setDriver().findElement(CartPage.cityCartInput).sendKeys("Rome");
+        setDriver().findElement(CartPage.emailCartInput).sendKeys("s@s.");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoPhoneText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successWarningMessageNoPostcodeShoppingForm(String duckName) {
+        LOG.debug("Checking correct warning message 'No Postcode' in Shopping form");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
+        setDriver().findElement(CartPage.cityCartInput).sendKeys("Rome");
+        setDriver().findElement(CartPage.emailCartInput).sendKeys("s@s.");
+        setDriver().findElement(CartPage.phoneCartInput).sendKeys("777");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoPostCodeText);
+        CartPage.cleaningCart();
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successAgreementCheckBoxShoppingFormIsVisible(String duckName) {
+        LOG.debug("Checking if agreement checkbox in Shopping form is visible");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
+        setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
+        setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
+        setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
+        setDriver().findElement(CartPage.cityCartInput).sendKeys("Rome");
+        setDriver().findElement(CartPage.emailCartInput).sendKeys("s@s.");
+        setDriver().findElement(CartPage.phoneCartInput).sendKeys("777");
+        setDriver().findElement(CartPage.postCodeCartInput).sendKeys("99999999");
+        CartPage.savingShoppingCartChanges();
+        Waiter.waitLoading(setDriver());
+        Assert.assertTrue(setDriver().findElement(CartPage.agreementCheckBoxShoppingForm).isDisplayed());
         CartPage.cleaningCart();
     }
 }

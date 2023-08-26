@@ -39,6 +39,7 @@ public class HomePage extends TestBase {
     private static final By loginLink = By.cssSelector("[href=\"https://litecart.info/login\"]");
     private static final By createAccountLink = By.cssSelector("[class=\"account\"] [href=\"https://litecart.info/create_account\"]");
     private static final By customerServiceFooterLink = By.cssSelector("[class=\"list-unstyled\"] [href=\"https://litecart.info/customer-service\"]");
+    public static final By loadingElement = By.cssSelector("[class='loader-wrapper']");
 
 
     public static By getMostPopularDuckLocator(String duckName){

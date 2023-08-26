@@ -126,4 +126,5 @@ public class DucksTest extends TestBase {
         RubberDucksPage.clickOnDuck(duckName);
         Assert.assertEquals(RubberDucksPage.getDuckColorTextFromDetails(), duckName.contains(" ") ? duckName.split(" ")[0] : duckName);
     }
+
 }
