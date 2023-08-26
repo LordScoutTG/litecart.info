@@ -1,11 +1,18 @@
 package liteCart;
 
 import io.qameta.allure.*;
+import liteCart.helpers.DataProviderClass;
 import liteCart.pages.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
+
+import static liteCart.helpers.WebDriverContainer.setDriver;
 
 @Epic("Regression Tests")
 @Feature("Main Menu Tests")
@@ -71,5 +78,24 @@ public class UnAuthorisedTest extends TestBase{
         for (int i = 0; i < CreateAccountPage.requiredCreateAccountFieldsText.size(); i++) {
             Assert.assertEquals(CreateAccountPage.searchRequiredCreateAccountFields().get(i).getText(), CreateAccountPage.requiredCreateAccountFieldsText.get(i));
         }
+    }
+    @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ducks shopping tests")
+    @Flaky
+    void successDuckSendKeysQuantity(String duckName) {
+        LOG.debug("Checking correct sending keys to Quantity at Duck Page");
+        LoginPage.acceptCookiesButtonClick();
+        MainMenu.clickMainMenuRDLink();
+        RubberDucksPage.clickOnDuck(duckName);
+        RubberDucksPage.setQuantityByKeys();
+        RubberDucksPage.assertStockStatusAndChooseLargeDuck();
+        RubberDucksPage.clickOnDuckQuantitySubmit();
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
+        HomePage.clickOnCartButton();
+        wait.until(ExpectedConditions.presenceOfElementLocated(CartPage.unregisteredErrorMessage));
+        Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoFirstNameText);
+        CartPage.cleaningCart();
     }
 }

@@ -28,10 +28,10 @@ public class MainMenu extends TestBase {
         LOG.info("Clicking on Rubber Ducks link at Main Menu");
         WebDriverWait wait = new WebDriverWait(WebDriverContainer.setDriver(), Duration.ofSeconds(5));
         LOG.debug("Waiting for Categories link appeared");
-        wait.until(ExpectedConditions.presenceOfElementLocated(categoriesMenuButton));
+        wait.until(ExpectedConditions.elementToBeClickable(categoriesMenuButton));
         setDriver().findElement(categoriesMenuButton).click();
         LOG.debug("Waiting for RD link appeared");
-        wait.until(ExpectedConditions.presenceOfElementLocated(categoriesRubberDuckLink));
+        wait.until(ExpectedConditions.elementToBeClickable(categoriesRubberDuckLink));
         setDriver().findElement(categoriesRubberDuckLink).click();
     }
 

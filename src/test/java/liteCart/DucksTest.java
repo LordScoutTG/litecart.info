@@ -114,6 +114,7 @@ public class DucksTest extends TestBase {
         WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         Assert.assertEquals(RubberDucksPage.getQuantityFromCart(),String.valueOf(RubberDucksPage.quantityOrder));
+        HomePage.clickOnCartButton();
         CartPage.cleaningCart();
     }
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)

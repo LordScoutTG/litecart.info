@@ -6,6 +6,7 @@
             <class name="liteCart.LoginTest"/>
             <class name="liteCart.MainMenuTest"/>
             <class name="liteCart.DucksTest"/>
+            <class name="liteCart.UnAuthorisedTest"/>
         </classes>
     </test>
 </suite>

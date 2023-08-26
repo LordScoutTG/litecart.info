@@ -18,6 +18,8 @@ public class CartPage extends TestBase {
     private static final By removeFromCartButton = By.cssSelector("[name=\"remove_cart_item\"]");
     private static final By cartTitle = By.cssSelector("[class=\"cart wrapper\"] [class=\"card-title\"]");
     private static final By cartText = By.cssSelector("[class=\"text-center\"]");
+    public static final By unregisteredErrorMessage = By.cssSelector("[class=\"error\"]");
+    public static final String unregisteredErrorNoFirstNameText = "Customer Details: You must enter a first name.";
 
     @Step("Clicking Remove from Cart button")
     public static void clickRemoveFromCartButton() {
@@ -37,7 +39,6 @@ public class CartPage extends TestBase {
     @Step("Cleaning Cart")
     public static void cleaningCart() {
         LOG.info("Cleaning Cart");
-        HomePage.clickOnCartButton();
         try {
             ifRemoveButtonIsVisible();
             clickRemoveFromCartButton();
@@ -48,5 +49,9 @@ public class CartPage extends TestBase {
         LOG.debug("Waiting empty cart text appeared");
         wait.until(ExpectedConditions.presenceOfElementLocated(cartText));
         Assert.assertEquals(setDriver().findElement(cartText).getText(), emptyCartText);
+    }
+    @Step("Getting unregistered error message text")
+    public static String getUnregisteredErrorMessageText(){
+        return setDriver().findElement(unregisteredErrorMessage).getText();
     }
 }

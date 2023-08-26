@@ -12,7 +12,7 @@ public class RubberDucksPage extends TestBase {
     public static final Integer quantityOrder = 10;
     private static final By rubberDuckTitle = By.cssSelector("h1[class='title']");
     private static final By duckQuantityInput = By.cssSelector("[type='number']");
-    private static final By duckQuantitySubmitButton = By.cssSelector("[type='submit']");
+    private static final By duckQuantitySubmitButton = By.cssSelector("[name=\"add_cart_product\"]");
     public static final By cartQuantity = By.cssSelector("[class=\"badge quantity\"]");
     private static final By availableStockStatus = By.cssSelector("[class='stock-available']");
     private static final By sizeOptionsMenu = By.cssSelector("[name='options[Size]']");
