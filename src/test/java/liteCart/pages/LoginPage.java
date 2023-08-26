@@ -15,16 +15,14 @@ public class LoginPage extends TestBase {
     private static final By unSuccessMessage = By.className("alert-danger");
     private static final By acceptCookies = By.cssSelector("[name=\"accept_cookies\"]");
     public static final String logoutMessage = "You are now logged out.";
-    public static final By openSignIn = By.cssSelector("[class=\"nav-item account dropdown\"]>[data-toggle=\"dropdown\"]");
+    private static final By signInButtom = By.cssSelector("[class=\"nav-item account dropdown\"]>[data-toggle=\"dropdown\"]");
     private static final By emailInputBox = By.cssSelector("[name=\"login_form\"] [name=\"email\"]");
     private static final By passwordInputBox = By.cssSelector("[name=\"login_form\"] [name=\"password\"]");
 
 
     public static void setEmailInput(String email) throws Exception {
-        LOG.debug("Accepting cookies");
-        setDriver().findElement(acceptCookies).click();
-        LOG.debug("Clicking sign in button");
-        setDriver().findElement(openSignIn).click();
+        acceptCookiesButtonClick();
+        signInMenuClick();
         WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(emailInputBox));
         LOG.debug("Writing login email");
@@ -52,5 +50,16 @@ public class LoginPage extends TestBase {
     public static boolean unSuccessMessageIsVisible() throws Exception {
         LOG.info("Checking unsuccessful message");
         return setDriver().findElement(unSuccessMessage).isDisplayed();
+    }
+
+    @Step("Clicking on Sign In menu")
+    public static void signInMenuClick(){
+        LOG.info("Clicking on Sign In menu");
+        setDriver().findElement(signInButtom).click();
+    }
+    @Step("Accepting Cookies")
+    public static void acceptCookiesButtonClick(){
+        LOG.info("Accepting Cookies");
+        setDriver().findElement(acceptCookies).click();
     }
 }

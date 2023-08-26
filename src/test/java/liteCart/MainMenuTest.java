@@ -35,7 +35,7 @@ public class MainMenuTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Story("Links tests")
     void successOrderHistoryLinkClick(){
-        setDriver().findElement(LoginPage.openSignIn).click();
+        LoginPage.signInMenuClick();
         MainMenu.verticalOrderHistoryLinkClick();
         Assert.assertEquals(OrderHistoryPage.getOrderHistoryPageTitle(), OrderHistoryPage.orderHistoryTitleText);
     }
@@ -43,7 +43,7 @@ public class MainMenuTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Story("Links tests")
     void successEditAccountLinkClick(){
-        setDriver().findElement(LoginPage.openSignIn).click();
+        LoginPage.signInMenuClick();
         MainMenu.verticalEditAccountLinkClick();
         Assert.assertEquals(EditAccountPage.getEditAccountTitle(), EditAccountPage.editAccountTitleText);
     }
@@ -51,7 +51,7 @@ public class MainMenuTest extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @Story("Links tests")
     void successLogoutLinkClick(){
-        setDriver().findElement(LoginPage.openSignIn).click();
+        LoginPage.signInMenuClick();
         MainMenu.verticalLogoutLinkClick();
         Assert.assertEquals(setDriver().findElement(HomePage.successMessage).getText(), LoginPage.logoutMessage);
     }
