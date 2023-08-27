@@ -64,7 +64,7 @@ public class DucksTest extends TestBase {
         HomePage.submitSettingsButtonClick();
         LOG.debug("Waiting for elements on page appeared after saving");
         wait.until(ExpectedConditions.presenceOfElementLocated(HomePage.euroPriceSymbols));
-        HomePage.searchEuroPriceSymbols().forEach(x -> Assert.assertTrue(x.getText().contains("€")));
+        HomePage.searchEuroPriceSymbols().forEach(x -> Assert.assertTrue(x.getText().contains("\u20AC")));
     }
 
     @Test(dataProvider = "duckDataProvider", dataProviderClass = DataProviderClass.class)
