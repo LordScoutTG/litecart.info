@@ -93,10 +93,11 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.presenceOfElementLocated(CartPage.unregisteredErrorMessage));
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoFirstNameText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoFirstNameText);
         CartPage.cleaningCart();
     }
@@ -112,13 +113,14 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
         setDriver().findElement(CartPage.firstNameCartInput).sendKeys("Roman");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoLastNameText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoLastNameText);
         CartPage.cleaningCart();
     }
@@ -134,7 +136,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -142,6 +144,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.lastNameCartInput).sendKeys("Romanov");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoAddressText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoAddressText);
         CartPage.cleaningCart();
     }
@@ -157,7 +160,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -166,6 +169,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.address1CartInput).sendKeys("Romanovskaya str");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoCityText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoCityText);
         CartPage.cleaningCart();
     }
@@ -181,7 +185,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -191,6 +195,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.cityCartInput).sendKeys("Rome");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoEmailText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoEmailText);
         CartPage.cleaningCart();
     }
@@ -206,7 +211,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -217,6 +222,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.emailCartInput).sendKeys("s@s.");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoPhoneText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoPhoneText);
         CartPage.cleaningCart();
     }
@@ -232,7 +238,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -244,6 +250,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.phoneCartInput).sendKeys("777");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.textToBe(CartPage.unregisteredErrorMessage, CartPage.unregisteredErrorNoPostCodeText));
         Assert.assertEquals(CartPage.getUnregisteredErrorMessageText(), CartPage.unregisteredErrorNoPostCodeText);
         CartPage.cleaningCart();
     }
@@ -259,7 +266,7 @@ public class UnAuthorisedTest extends TestBase{
         RubberDucksPage.setQuantityByKeys();
         RubberDucksPage.assertStockStatusAndChooseLargeDuck();
         RubberDucksPage.clickOnDuckQuantitySubmit();
-        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(setDriver(), Duration.ofSeconds(5), Duration.ofMillis(100));
         wait.until((ExpectedConditions.textMatches(RubberDucksPage.cartQuantity, Pattern.compile("[1-9]+[0-9]{0,}"))));
         HomePage.clickOnCartButton();
         wait.until(ExpectedConditions.elementToBeClickable(CartPage.firstNameCartInput));
@@ -272,6 +279,7 @@ public class UnAuthorisedTest extends TestBase{
         setDriver().findElement(CartPage.postCodeCartInput).sendKeys("99999999");
         CartPage.savingShoppingCartChanges();
         Waiter.waitLoading(setDriver());
+        wait.until(ExpectedConditions.presenceOfElementLocated(CartPage.agreementCheckBoxShoppingForm));
         Assert.assertTrue(setDriver().findElement(CartPage.agreementCheckBoxShoppingForm).isDisplayed());
         CartPage.cleaningCart();
     }
