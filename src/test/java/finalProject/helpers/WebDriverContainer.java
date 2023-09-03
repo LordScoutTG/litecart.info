@@ -23,7 +23,7 @@ public class WebDriverContainer {
             System.setProperty("webdriver.http.factory", "jdk-http-client"); // Устраняет ошибку асинхр клиента
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
-            options.addArguments("--start-maximized");
+            options.addArguments("window-size=1920x1080");
             switch (browser) {
                 case chrome:
                     driver.set(ThreadGuard.protect(new ChromeDriver(options)));

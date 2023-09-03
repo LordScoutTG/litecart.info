@@ -7,6 +7,9 @@
             <class name="liteCart.MainMenuTest"/>
             <class name="liteCart.DucksTest"/>
             <class name="liteCart.UnAuthorisedTest"/>
+            <class name="finalProject.LoginTest"/>
+            <class name="finalProject.VerticalMenuTest"/>
+            <class name="finalProject.DucksTest"/>
         </classes>
     </test>
 </suite>

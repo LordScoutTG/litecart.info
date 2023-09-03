@@ -16,7 +16,6 @@ public class CustomerServicePage extends TestBase {
     private final static By contactUsTitle = By.cssSelector("[class=\"col-md-8\"] h1");
     private final static By resetPasswordTitle = By.cssSelector("[id=\"box-reset-password\"] [class=\"card-title\"]");
     private static final By requiredContactUsFields = By.xpath("//input[@required]/preceding::label[1] | //textarea[@required]/preceding::label[1]");
-
     public final static String customerServiceText = "Customer Service";
     public final static String contactUsText = "Contact Us";
     public final static String resetPasswordText = "Reset Password";
