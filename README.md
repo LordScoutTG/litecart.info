@@ -1,7 +1,7 @@
 
 # litecart.info autotests Selenium Java
 
-Tiny project, that reproducec abilities of pytest in UI testing
+Tiny project, that reproducec abilities of selenium Java in UI testing
 
 
 ## Deployment
